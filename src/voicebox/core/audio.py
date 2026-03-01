@@ -71,7 +71,7 @@ class AudioRecorder:
             self._stream.close()
             self._stream = None
 
-        # Drain queued chunks (VAD doesn't need them — audio is already in self._chunks)
+        # Drain queued chunks before signaling forwarder to stop
         while not self._queue.empty():
             try:
                 self._queue.get_nowait()
@@ -102,7 +102,7 @@ class AudioRecorder:
         self._queue.put_nowait(chunk)
 
     def _forward_loop(self, on_chunk: Callable[[np.ndarray], None]) -> None:
-        """Runs in a separate thread, forwarding audio chunks to on_chunk (e.g. VAD)."""
+        """Runs in a separate thread, forwarding audio chunks to on_chunk."""
         while True:
             chunk = self._queue.get()
             if chunk is None:
