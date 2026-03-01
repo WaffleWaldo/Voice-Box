@@ -4,8 +4,11 @@ from __future__ import annotations
 
 import enum
 import logging
+import math
 import threading
 from typing import TYPE_CHECKING
+
+import numpy as np
 
 from voicebox.core.audio import AudioRecorder
 from voicebox.core.refiner import Refiner
@@ -13,12 +16,16 @@ from voicebox.core.transcriber import Transcriber
 from voicebox.data.dictionary import Dictionary
 from voicebox.services.injector import Injector
 from voicebox.services.niri import get_focused_window
-from voicebox.services.notifier import notify
 
 if TYPE_CHECKING:
     from voicebox.config import Config
+    from voicebox.services.overlay import Overlay
 
 log = logging.getLogger(__name__)
+
+# RMS → normalized level mapping
+_DB_FLOOR = -60.0
+_DB_CEIL = 0.0
 
 
 class State(enum.Enum):
@@ -30,10 +37,11 @@ class State(enum.Enum):
 class Pipeline:
     """Owns all components and orchestrates the voice-to-text flow."""
 
-    def __init__(self, config: Config) -> None:
+    def __init__(self, config: Config, overlay: Overlay | None = None) -> None:
         self._config = config
         self._state = State.IDLE
         self._lock = threading.Lock()
+        self._overlay = overlay
 
         # Core
         self._recorder = AudioRecorder(config.audio)
@@ -45,7 +53,6 @@ class Pipeline:
 
         # Services
         self._injector = Injector()
-        self._notify = config.notifications.enabled
 
         # Check Ollama connectivity at startup
         self._refiner.check_connection()
@@ -66,15 +73,30 @@ class Pipeline:
 
     def _start_recording(self) -> str:
         self._state = State.RECORDING
-        self._recorder.start()
-        if self._notify:
-            notify("Recording...", "Speak now")
+        if self._overlay:
+            self._overlay.show_recording()
+        self._recorder.start(on_chunk=self._on_audio_chunk)
         return "recording"
+
+    def _on_audio_chunk(self, chunk: np.ndarray) -> None:
+        """Compute RMS of audio chunk and forward to overlay as 0.0–1.0 level."""
+        if self._overlay is None:
+            return
+        rms = float(np.sqrt(np.mean(chunk ** 2)))
+        if rms > 0:
+            db = 20.0 * math.log10(rms)
+        else:
+            db = _DB_FLOOR
+        level = (db - _DB_FLOOR) / (_DB_CEIL - _DB_FLOOR)
+        level = max(0.0, min(1.0, level))
+        self._overlay.update_audio_level(level)
 
     def _stop_recording(self) -> str:
         """Stop recording and kick off processing in a background thread."""
         self._recorder.stop()
         self._state = State.PROCESSING
+        if self._overlay:
+            self._overlay.show_processing()
         thread = threading.Thread(target=self._process, daemon=True)
         thread.start()
         return "processing"
@@ -82,14 +104,11 @@ class Pipeline:
     def _process(self) -> None:
         """Run the transcribe → refine → inject pipeline."""
         try:
-            if self._notify:
-                notify("Processing...", "Transcribing audio")
-
             audio = self._recorder.get_audio()
             if audio.size == 0:
                 log.warning("No audio captured")
-                if self._notify:
-                    notify("No audio", "Nothing was recorded", urgency="low")
+                if self._overlay:
+                    self._overlay.show_error()
                 return
 
             duration = audio.size / self._recorder.sample_rate
@@ -101,8 +120,8 @@ class Pipeline:
 
             if not transcript.strip():
                 log.warning("Empty transcription")
-                if self._notify:
-                    notify("No speech detected", urgency="low")
+                if self._overlay:
+                    self._overlay.show_error()
                 return
 
             # Get window context for refinement
@@ -119,16 +138,16 @@ class Pipeline:
 
             # Inject
             success = self._injector.inject(text, app_id=window["app_id"])
-            if self._notify:
+            if self._overlay:
                 if success:
-                    notify("Done", text[:100])
+                    self._overlay.show_done()
                 else:
-                    notify("Injection failed", "Could not type text", urgency="critical")
+                    self._overlay.show_error()
 
         except Exception:
             log.exception("Pipeline error")
-            if self._notify:
-                notify("Error", "Pipeline failed — check logs", urgency="critical")
+            if self._overlay:
+                self._overlay.show_error()
         finally:
             with self._lock:
                 self._state = State.IDLE
