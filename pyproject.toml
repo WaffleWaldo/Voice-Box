@@ -12,7 +12,7 @@ readme = "README.md"
 keywords = ["voice", "speech-to-text", "whisper", "wayland", "linux"]
 classifiers = [
     "Development Status :: 3 - Alpha",
-    "Environment :: Wayland",
+    "Environment :: Other Environment",
     "License :: OSI Approved :: MIT License",
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python :: 3.12",
