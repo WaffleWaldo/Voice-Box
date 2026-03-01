@@ -117,6 +117,8 @@ The configuration file lives at `~/.config/voicebox/config.toml`. See `config.ex
 | `[stt]` | `model`, `device` (`"cuda"`), `compute_type`, `language` |
 | `[refiner]` | `enabled`, `ollama_url`, `model`, `temperature`, `system_prompt` |
 | `[injector]` | `type_delay_ms`, `clipboard_threshold` |
+| `[overlay]` | `enabled` — set to `false` to disable the GTK4 overlay UI |
+| `[notifications]` | `enabled` — desktop notifications |
 | `[dictionary]` | `path` — custom word list for domain-specific terms |
 
 ## License
