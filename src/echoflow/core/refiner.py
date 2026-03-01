@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 import httpx
 
 if TYPE_CHECKING:
-    from voicebox.config import RefinerConfig
+    from echoflow.config import RefinerConfig
 
 log = logging.getLogger(__name__)
 

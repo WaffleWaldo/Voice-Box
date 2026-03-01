@@ -1,5 +1,5 @@
-# Voicebox configuration
-# Copy to ~/.config/voicebox/config.toml and customize.
+# EchoFlow configuration
+# Copy to ~/.config/echoflow/config.toml and customize.
 # All values shown are defaults — omit any you don't need to change.
 
 [audio]
@@ -16,7 +16,7 @@ language = "en"
 [refiner]
 enabled = true
 ollama_url = "http://127.0.0.1:11434"
-model = "voicebox-refiner"         # Build with: ollama create voicebox-refiner -f contrib/Modelfile
+model = "echoflow-refiner"         # Build with: ollama create echoflow-refiner -f contrib/Modelfile
 temperature = 0.2
 
 [overlay]
@@ -27,4 +27,4 @@ type_delay_ms = 0
 clipboard_threshold = 500   # Characters above which clipboard paste is used
 
 [dictionary]
-# path = "~/.config/voicebox/dictionary.txt"
+# path = "~/.config/echoflow/dictionary.txt"

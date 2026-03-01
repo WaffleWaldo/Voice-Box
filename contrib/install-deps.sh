@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install Voice Box system dependencies on Arch Linux / CachyOS.
+# Install EchoFlow system dependencies on Arch Linux / CachyOS.
 set -euo pipefail
 
 PACMAN_PKGS=(

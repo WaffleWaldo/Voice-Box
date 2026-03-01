@@ -5,7 +5,7 @@ Usage:
     pip install unsloth
     python benchmarks/refiner/train.py
 
-Trains a LoRA adapter and registers it with Ollama as 'voicebox-refiner'.
+Trains a LoRA adapter and registers it with Ollama as 'echoflow-refiner'.
 Sized for RTX 4060 Ti 16GB (~5 min training).
 """
 
@@ -227,21 +227,21 @@ def main():
 
     print("Registering model with Ollama...")
     result = subprocess.run(
-        ["ollama", "create", "voicebox-refiner", "-f", str(modelfile_path)],
+        ["ollama", "create", "echoflow-refiner", "-f", str(modelfile_path)],
         capture_output=True,
         text=True,
     )
     if result.returncode == 0:
-        print("  Model registered as 'voicebox-refiner'")
+        print("  Model registered as 'echoflow-refiner'")
     else:
         print(f"  Ollama registration failed: {result.stderr}")
-        print(f"  Register manually: ollama create voicebox-refiner -f {modelfile_path}")
+        print(f"  Register manually: ollama create echoflow-refiner -f {modelfile_path}")
 
     print()
     print("=" * 60)
     print("Fine-tuning complete!")
     print(f"  Adapter: {ADAPTER_DIR}")
-    print(f"  Ollama model: voicebox-refiner")
+    print(f"  Ollama model: echoflow-refiner")
     print()
     print("Next steps:")
     print("  make bench        # Compare against baseline")

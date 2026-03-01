@@ -11,7 +11,7 @@ import numpy as np
 import sounddevice as sd
 
 if TYPE_CHECKING:
-    from voicebox.config import AudioConfig
+    from echoflow.config import AudioConfig
 
 log = logging.getLogger(__name__)
 
