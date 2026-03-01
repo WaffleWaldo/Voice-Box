@@ -23,29 +23,31 @@ A GTK4 overlay (via gtk4-layer-shell) shows a recording waveform, processing spi
 
 ## Installation
 
-### 1. System packages
-
-```sh
-sudo pacman -S python gtk4 gtk4-layer-shell python-gobject \
-               python-numpy python-httpx wl-clipboard wtype pipewire
-```
-
-Install `faster-whisper` from the AUR:
-
-```sh
-yay -S python-faster-whisper
-```
-
-### 2. Clone and install
+### 1. Clone and install dependencies
 
 ```sh
 git clone https://github.com/WaffleWaldo/Voice-Box.git
 cd Voice-Box
+./contrib/install-deps.sh
+```
+
+This installs all system packages via pacman and the AUR dependency (`faster-whisper`)
+via paru or yay. Or install them manually:
+
+```sh
+sudo pacman -S python gtk4 gtk4-layer-shell python-gobject \
+               python-numpy python-httpx wl-clipboard wtype pipewire
+yay -S python-faster-whisper
+```
+
+### 2. Install Voice Box
+
+```sh
 make install
 ```
 
 This creates a venv with `--system-site-packages` (needed for PyGObject/GTK4 bindings),
-installs pip-only dependencies (`sounddevice`, `silero-vad`), and symlinks the `voicebox`
+installs pip-only dependencies (`sounddevice`), and symlinks the `voicebox`
 binary into `~/.local/bin/`.
 
 ### 3. Configure
