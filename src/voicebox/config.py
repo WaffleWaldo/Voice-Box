@@ -59,6 +59,11 @@ class InjectorConfig:
 
 
 @dataclass
+class OverlayConfig:
+    enabled: bool = True
+
+
+@dataclass
 class NotificationsConfig:
     enabled: bool = True
 
@@ -75,6 +80,7 @@ class Config:
     stt: STTConfig = field(default_factory=STTConfig)
     refiner: RefinerConfig = field(default_factory=RefinerConfig)
     injector: InjectorConfig = field(default_factory=InjectorConfig)
+    overlay: OverlayConfig = field(default_factory=OverlayConfig)
     notifications: NotificationsConfig = field(default_factory=NotificationsConfig)
     dictionary: DictionaryConfig = field(default_factory=DictionaryConfig)
 
@@ -102,6 +108,7 @@ def load_config(path: Path | None = None) -> Config:
             "stt": cfg.stt,
             "refiner": cfg.refiner,
             "injector": cfg.injector,
+            "overlay": cfg.overlay,
             "notifications": cfg.notifications,
             "dictionary": cfg.dictionary,
         }

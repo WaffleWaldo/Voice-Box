@@ -32,6 +32,9 @@ system_prompt = """You clean up voice transcriptions. Rules:
 - Output ONLY the cleaned text, nothing else"""
 user_prompt = "App: {app_id} | Window: {window_title}\n\nTranscript:\n{transcript}"
 
+[overlay]
+enabled = true                  # Set to false to disable the GTK4 overlay UI
+
 [injector]
 type_delay_ms = 0
 clipboard_threshold = 500   # Characters above which clipboard paste is used

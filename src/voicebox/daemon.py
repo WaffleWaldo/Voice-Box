@@ -70,8 +70,9 @@ class Daemon:
         if os.path.exists(sock_path):
             os.unlink(sock_path)
 
-        # Create overlay and pipeline
-        self._overlay = Overlay(app)
+        # Create overlay (if enabled) and pipeline
+        if self._config.overlay.enabled:
+            self._overlay = Overlay(app)
         self._pipeline = Pipeline(self._config, overlay=self._overlay)
 
         # Non-blocking Unix socket integrated with GLib
