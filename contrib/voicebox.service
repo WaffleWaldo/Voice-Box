@@ -1,0 +1,13 @@
+[Unit]
+Description=Voice Box — voice-to-text daemon
+Documentation=https://github.com/WaffleWaldo/Voice-Box
+After=graphical-session.target pipewire.service
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/voicebox daemon
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=graphical-session.target
