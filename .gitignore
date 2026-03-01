@@ -11,3 +11,5 @@ build/
 .mypy_cache/
 .ruff_cache/
 benchmarks/refiner/baselines/*.json
+benchmarks/refiner/output/
+unsloth_compiled_cache/

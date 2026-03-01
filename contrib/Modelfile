@@ -1,5 +1,7 @@
 FROM llama3.1:8b
 
+ADAPTER ./benchmarks/refiner/output/adapter
+
 PARAMETER temperature 0.2
 PARAMETER num_ctx 4096
 PARAMETER repeat_penalty 1.0

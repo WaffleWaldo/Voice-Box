@@ -52,12 +52,14 @@ binary into `~/.local/bin/`.
 
 ### 3. Build the refiner model
 
+If you have a trained LoRA adapter (see [Fine-tuning](#fine-tuning-the-refiner) below):
+
 ```sh
 make model
 ```
 
-This creates a custom Ollama model (`voicebox-refiner`) with baked-in system prompt
-and few-shot examples for reliable transcript cleaning.
+This creates a custom Ollama model (`voicebox-refiner`) that loads the fine-tuned
+LoRA adapter on top of `llama3.1:8b`, with a system prompt and few-shot examples.
 
 ### 4. Configure
 
@@ -128,6 +130,54 @@ The configuration file lives at `~/.config/voicebox/config.toml`. See `config.ex
 | `[injector]` | `type_delay_ms`, `clipboard_threshold` |
 | `[overlay]` | `enabled` — set to `false` to disable the GTK4 overlay UI |
 | `[dictionary]` | `path` — custom word list for domain-specific terms |
+
+## Fine-tuning the Refiner
+
+The refiner uses a LoRA-fine-tuned `llama3.1:8b` to clean speech-to-text transcripts.
+The base model is trained as a chatbot and tends to follow instruction-like transcripts
+instead of cleaning them literally. Fine-tuning on transcript cleanup data fixes this.
+
+### Requirements
+
+- NVIDIA GPU with 16GB VRAM (tested on RTX 4060 Ti)
+- [Ollama](https://ollama.com/) with `llama3.1:8b` pulled
+- [Unsloth](https://unsloth.ai/) for LoRA training
+
+```sh
+pip install unsloth    # pulls torch, transformers, peft, trl, etc.
+ollama pull llama3.1:8b
+```
+
+### Training
+
+```sh
+make train    # ~5 min on RTX 4060 Ti 16GB
+```
+
+This runs `benchmarks/refiner/train.py` which:
+
+1. Loads `llama3.1:8b-instruct` in 4-bit quantization (~8GB VRAM)
+2. Applies LoRA adapters (rank=16, all linear layers)
+3. Trains for 3 epochs on 350 transcript cleanup examples (`train.jsonl`)
+4. Saves the adapter to `benchmarks/refiner/output/adapter/`
+5. Registers the model with Ollama as `voicebox-refiner`
+
+### Benchmarking
+
+```sh
+make bench-baseline    # save current results as baseline
+make bench             # compare against saved baseline
+```
+
+The benchmark suite (`benchmarks/refiner/run.py`) tests 15 cases across categories
+like filler removal, instruction-like inputs, multi-sentence formatting, and edge cases.
+
+### Training data
+
+`benchmarks/refiner/train.jsonl` contains 350 (input, output) pairs across 8 categories:
+filler removal, false starts, instruction-like content, multi-sentence, lists, technical
+jargon, short phrases, and edge cases. The 15 benchmark cases in `cases.jsonl` are kept
+separate as the test set — no data leakage between training and evaluation.
 
 ## License
 
