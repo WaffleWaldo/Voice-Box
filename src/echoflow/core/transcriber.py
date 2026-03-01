@@ -9,7 +9,7 @@ import numpy as np
 from faster_whisper import WhisperModel
 
 if TYPE_CHECKING:
-    from voicebox.config import STTConfig
+    from echoflow.config import STTConfig
 
 log = logging.getLogger(__name__)
 

@@ -493,31 +493,31 @@
 {"input": "how do I reset my local database", "output": "How do I reset my local database?"}
 {"input": "um where is the configuration for the cron jobs", "output": "Where is the configuration for the cron jobs?"}
 {"input": "so what's the process for requesting a new API key", "output": "What's the process for requesting a new API key?"}
-{"input": "tell me about voice box and how it works", "output": "Tell me about Voice Box and how it works."}
-{"input": "um how do I install voice box on my machine", "output": "How do I install Voice Box on my machine?"}
-{"input": "configure voice box to use a different model", "output": "Configure Voice Box to use a different model."}
-{"input": "so how does voice box handle background noise", "output": "How does Voice Box handle background noise?"}
-{"input": "what version of voice box are we running", "output": "What version of Voice Box are we running?"}
-{"input": "uh voice box keeps crashing when I start it", "output": "Voice Box keeps crashing when I start it."}
-{"input": "is voice box compatible with Linux", "output": "Is Voice Box compatible with Linux?"}
-{"input": "how do I update voice box to the latest version", "output": "How do I update Voice Box to the latest version?"}
-{"input": "um voice box is not recognizing my microphone", "output": "Voice Box is not recognizing my microphone."}
-{"input": "can voice box run in the background", "output": "Can Voice Box run in the background?"}
-{"input": "so the voice box configuration file needs to be updated", "output": "The Voice Box configuration file needs to be updated."}
-{"input": "does voice box support multiple languages", "output": "Does Voice Box support multiple languages?"}
-{"input": "um how do I uninstall voice box completely", "output": "How do I uninstall Voice Box completely?"}
-{"input": "voice box uses too much CPU when transcribing", "output": "Voice Box uses too much CPU when transcribing."}
-{"input": "so like where does voice box store its data", "output": "Where does Voice Box store its data?"}
-{"input": "uh the voice box logs show an authentication error", "output": "The Voice Box logs show an authentication error."}
-{"input": "how do I configure voice box for low latency mode", "output": "How do I configure Voice Box for low latency mode?"}
-{"input": "can I use voice box with Bluetooth headphones", "output": "Can I use Voice Box with Bluetooth headphones?"}
-{"input": "voice box needs to be restarted after a config change", "output": "Voice Box needs to be restarted after a config change."}
-{"input": "um what's the default sample rate for voice box", "output": "What's the default sample rate for Voice Box?"}
-{"input": "is there a way to test voice box without a microphone", "output": "Is there a way to test Voice Box without a microphone?"}
-{"input": "the voice box API returns a four oh four error", "output": "The Voice Box API returns a 404 error."}
-{"input": "so voice box doesn't start on boot anymore", "output": "Voice Box doesn't start on boot anymore."}
-{"input": "how do I contribute to the voice box project", "output": "How do I contribute to the Voice Box project?"}
-{"input": "voice box is open source right", "output": "Voice Box is open source, right?"}
+{"input": "tell me about echo flow and how it works", "output": "Tell me about EchoFlow and how it works."}
+{"input": "um how do I install echo flow on my machine", "output": "How do I install EchoFlow on my machine?"}
+{"input": "configure echo flow to use a different model", "output": "Configure EchoFlow to use a different model."}
+{"input": "so how does echo flow handle background noise", "output": "How does EchoFlow handle background noise?"}
+{"input": "what version of echo flow are we running", "output": "What version of EchoFlow are we running?"}
+{"input": "uh echo flow keeps crashing when I start it", "output": "EchoFlow keeps crashing when I start it."}
+{"input": "is echo flow compatible with Linux", "output": "Is EchoFlow compatible with Linux?"}
+{"input": "how do I update echo flow to the latest version", "output": "How do I update EchoFlow to the latest version?"}
+{"input": "um echo flow is not recognizing my microphone", "output": "EchoFlow is not recognizing my microphone."}
+{"input": "can echo flow run in the background", "output": "Can EchoFlow run in the background?"}
+{"input": "so the echo flow configuration file needs to be updated", "output": "The EchoFlow configuration file needs to be updated."}
+{"input": "does echo flow support multiple languages", "output": "Does EchoFlow support multiple languages?"}
+{"input": "um how do I uninstall echo flow completely", "output": "How do I uninstall EchoFlow completely?"}
+{"input": "echo flow uses too much CPU when transcribing", "output": "EchoFlow uses too much CPU when transcribing."}
+{"input": "so like where does echo flow store its data", "output": "Where does EchoFlow store its data?"}
+{"input": "uh the echo flow logs show an authentication error", "output": "The EchoFlow logs show an authentication error."}
+{"input": "how do I configure echo flow for low latency mode", "output": "How do I configure EchoFlow for low latency mode?"}
+{"input": "can I use echo flow with Bluetooth headphones", "output": "Can I use EchoFlow with Bluetooth headphones?"}
+{"input": "echo flow needs to be restarted after a config change", "output": "EchoFlow needs to be restarted after a config change."}
+{"input": "um what's the default sample rate for echo flow", "output": "What's the default sample rate for EchoFlow?"}
+{"input": "is there a way to test echo flow without a microphone", "output": "Is there a way to test EchoFlow without a microphone?"}
+{"input": "the echo flow API returns a four oh four error", "output": "The EchoFlow API returns a 404 error."}
+{"input": "so echo flow doesn't start on boot anymore", "output": "EchoFlow doesn't start on boot anymore."}
+{"input": "how do I contribute to the echo flow project", "output": "How do I contribute to the EchoFlow project?"}
+{"input": "echo flow is open source right", "output": "EchoFlow is open source, right?"}
 {"input": "first clone the repo then install dependencies and run the tests", "output": "First, clone the repo, then install dependencies, and run the tests."}
 {"input": "first set up the database then create the tables then seed the data and finally start the server", "output": "First, set up the database, then create the tables, then seed the data, and finally start the server."}
 {"input": "um open the config file change the port number save it and restart the service", "output": "Open the config file, change the port number, save it, and restart the service."}
@@ -811,26 +811,26 @@
 {"input": "deploy the Lambda functions with the SAM template", "output": "Deploy the Lambda functions with the SAM template."}
 {"input": "um configure the Istio service mesh for traffic splitting", "output": "Configure the Istio service mesh for traffic splitting."}
 {"input": "set up PagerDuty integration with the monitoring stack", "output": "Set up PagerDuty integration with the monitoring stack."}
-{"input": "so um Voice Box is like not starting on my machine", "output": "Voice Box is not starting on my machine."}
-{"input": "um the voice box refiner is uh giving weird outputs", "output": "The Voice Box refiner is giving weird outputs."}
-{"input": "basically uh tell me how to configure voice box for voice box desktop", "output": "Tell me how to configure Voice Box for Voice Box Desktop."}
-{"input": "so like the voice box log files are uh filling up the disk", "output": "The Voice Box log files are filling up the disk."}
-{"input": "um I need to reset my voice box settings to default", "output": "I need to reset my Voice Box settings to default."}
-{"input": "yeah so like um voice box crashed again after the update", "output": "Voice Box crashed again after the update."}
-{"input": "uh the the voice box transcription is is not accurate", "output": "The Voice Box transcription is not accurate."}
-{"input": "so um basically voice box needs more RAM to run smoothly", "output": "Voice Box needs more RAM to run smoothly."}
-{"input": "um can can you like explain how voice box does the the noise cancellation", "output": "Can you explain how Voice Box does the noise cancellation?"}
-{"input": "yeah the voice box team released a new version with bug fixes", "output": "The Voice Box team released a new version with bug fixes."}
-{"input": "uh so like voice box and and um the the other tools need to be updated", "output": "Voice Box and the other tools need to be updated."}
-{"input": "basically um I was testing voice box on Linux and uh it it works great", "output": "I was testing Voice Box on Linux and it works great."}
-{"input": "so the voice box documentation says to use port three thousand", "output": "The Voice Box documentation says to use port 3000."}
-{"input": "um voice box uses too much memory when running in the background", "output": "Voice Box uses too much memory when running in the background."}
-{"input": "like how do I integrate voice box with my existing workflow", "output": "How do I integrate Voice Box with my existing workflow?"}
-{"input": "the voice box API endpoint is uh returning a timeout", "output": "The Voice Box API endpoint is returning a timeout."}
-{"input": "so I installed voice box but it's not showing in the system tray", "output": "I installed Voice Box, but it's not showing in the system tray."}
-{"input": "um does voice box support custom wake words", "output": "Does Voice Box support custom wake words?"}
-{"input": "voice box keeps asking me to update but the update fails", "output": "Voice Box keeps asking me to update, but the update fails."}
-{"input": "yeah so like the voice box settings got reset after the crash", "output": "The Voice Box settings got reset after the crash."}
+{"input": "so um EchoFlow is like not starting on my machine", "output": "EchoFlow is not starting on my machine."}
+{"input": "um the echo flow refiner is uh giving weird outputs", "output": "The EchoFlow refiner is giving weird outputs."}
+{"input": "basically uh tell me how to configure echo flow for echo flow desktop", "output": "Tell me how to configure EchoFlow for EchoFlow Desktop."}
+{"input": "so like the echo flow log files are uh filling up the disk", "output": "The EchoFlow log files are filling up the disk."}
+{"input": "um I need to reset my echo flow settings to default", "output": "I need to reset my EchoFlow settings to default."}
+{"input": "yeah so like um echo flow crashed again after the update", "output": "EchoFlow crashed again after the update."}
+{"input": "uh the the echo flow transcription is is not accurate", "output": "The EchoFlow transcription is not accurate."}
+{"input": "so um basically echo flow needs more RAM to run smoothly", "output": "EchoFlow needs more RAM to run smoothly."}
+{"input": "um can can you like explain how echo flow does the the noise cancellation", "output": "Can you explain how EchoFlow does the noise cancellation?"}
+{"input": "yeah the echo flow team released a new version with bug fixes", "output": "The EchoFlow team released a new version with bug fixes."}
+{"input": "uh so like echo flow and and um the the other tools need to be updated", "output": "EchoFlow and the other tools need to be updated."}
+{"input": "basically um I was testing echo flow on Linux and uh it it works great", "output": "I was testing EchoFlow on Linux and it works great."}
+{"input": "so the echo flow documentation says to use port three thousand", "output": "The EchoFlow documentation says to use port 3000."}
+{"input": "um echo flow uses too much memory when running in the background", "output": "EchoFlow uses too much memory when running in the background."}
+{"input": "like how do I integrate echo flow with my existing workflow", "output": "How do I integrate EchoFlow with my existing workflow?"}
+{"input": "the echo flow API endpoint is uh returning a timeout", "output": "The EchoFlow API endpoint is returning a timeout."}
+{"input": "so I installed echo flow but it's not showing in the system tray", "output": "I installed EchoFlow, but it's not showing in the system tray."}
+{"input": "um does echo flow support custom wake words", "output": "Does EchoFlow support custom wake words?"}
+{"input": "echo flow keeps asking me to update but the update fails", "output": "EchoFlow keeps asking me to update, but the update fails."}
+{"input": "yeah so like the echo flow settings got reset after the crash", "output": "The EchoFlow settings got reset after the crash."}
 {"input": "explain how to set up continuous integration for the project", "output": "Explain how to set up continuous integration for the project."}
 {"input": "explain how the event bus dispatches messages", "output": "Explain how the event bus dispatches messages."}
 {"input": "um describe the retry strategy for failed requests", "output": "Describe the retry strategy for failed requests."}
@@ -924,7 +924,7 @@
 {"input": "yeah so basically um we need we need to rewrite rewrite the the parser because it it doesn't handle um nested structures", "output": "We need to rewrite the parser because it doesn't handle nested structures."}
 {"input": "uh could you could you describe the the the data flow from from the ingestion layer to the the storage layer", "output": "Could you describe the data flow from the ingestion layer to the storage layer?"}
 {"input": "so like um please please deploy the the hotfix and and verify verify the metrics look normal", "output": "Please deploy the hotfix and verify the metrics look normal."}
-{"input": "um yeah so the the voice box um config needs needs to be to be reset and and the the service restarted", "output": "The Voice Box config needs to be reset and the service restarted."}
+{"input": "um yeah so the the echo flow um config needs needs to be to be reset and and the the service restarted", "output": "The EchoFlow config needs to be reset and the service restarted."}
 {"input": "so uh basically I was I was testing the the API and um it kept kept returning returning errors and uh I think the the rate limiter is is misconfigured", "output": "I was testing the API and it kept returning errors. I think the rate limiter is misconfigured."}
 {"input": "um like write write a a function to to validate the the input and and return return appropriate error messages", "output": "Write a function to validate the input and return appropriate error messages."}
 {"input": "yeah so um basically um we had the the standup and um discussed discussed the blockers and uh assigned owners to to each issue", "output": "We had the standup, discussed the blockers, and assigned owners to each issue."}
@@ -933,15 +933,15 @@
 {"input": "so basically um the the PostgreSQL connection um pool is is exhausted and and the the queries are are timing out", "output": "The PostgreSQL connection pool is exhausted, and the queries are timing out."}
 {"input": "uh like the the Redis cluster um needs needs to be scaled up because um the the cache hit rate is is dropping", "output": "The Redis cluster needs to be scaled up because the cache hit rate is dropping."}
 {"input": "um so the the Terraform state um got got corrupted and and we we need to to import the the resources manually", "output": "The Terraform state got corrupted, and we need to import the resources manually."}
-{"input": "yeah um so voice box um keeps keeps logging logging errors about about the the microphone and and it it won't won't start", "output": "Voice Box keeps logging errors about the microphone and it won't start."}
+{"input": "yeah um so echo flow um keeps keeps logging logging errors about about the the microphone and and it it won't won't start", "output": "EchoFlow keeps logging errors about the microphone and it won't start."}
 {"input": "basically um the the Nginx proxy is uh returning five oh two errors because the the upstream is is not responding", "output": "The Nginx proxy is returning 502 errors because the upstream is not responding."}
 {"input": "so like um we we need to to update the the GitHub Actions workflow to to use the the new runners and and add add caching", "output": "We need to update the GitHub Actions workflow to use the new runners and add caching."}
 {"input": "um the the Grafana dashboard um shows shows that that the the latency has has doubled since since the the last deployment", "output": "The Grafana dashboard shows that the latency has doubled since the last deployment."}
-{"input": "yeah so um the the voice box team um released released a patch for for the the memory leak and um we we should update", "output": "The Voice Box team released a patch for the memory leak, and we should update."}
+{"input": "yeah so um the the echo flow team um released released a patch for for the the memory leak and um we we should update", "output": "The EchoFlow team released a patch for the memory leak, and we should update."}
 {"input": "uh basically the the API gateway uh is is dropping dropping requests when when the the backend is is slow and and we we need retry logic", "output": "The API gateway is dropping requests when the backend is slow, and we need retry logic."}
 {"input": "so um like the the monitoring um shows shows spikes in in CPU usage every every time the the cron job runs", "output": "The monitoring shows spikes in CPU usage every time the cron job runs."}
 {"input": "um yeah so uh basically we um we need to to implement implement a a queue for for the the email notifications and uh add add dead letter handling", "output": "We need to implement a queue for the email notifications and add dead letter handling."}
-{"input": "so like um the the voice box um transcription um is uh mixing up up similar sounding words and and we we need better context handling", "output": "The Voice Box transcription is mixing up similar-sounding words, and we need better context handling."}
+{"input": "so like um the the echo flow um transcription um is uh mixing up up similar sounding words and and we we need better context handling", "output": "The EchoFlow transcription is mixing up similar-sounding words, and we need better context handling."}
 {"input": "uh um so the the the SSL cert uh expired on on the the staging server and and nobody nobody noticed for for two days", "output": "The SSL cert expired on the staging server, and nobody noticed for two days."}
 {"input": "yeah basically um I was um I was debugging the the memory issue and um found found that that the the connection pool pool wasn't being cleaned up properly", "output": "I was debugging the memory issue and found that the connection pool wasn't being cleaned up properly."}
 {"input": "so um like the the build takes um forty minutes because because of of the the TypeScript compilation and and we should we should add incremental builds", "output": "The build takes 40 minutes because of the TypeScript compilation, and we should add incremental builds."}
@@ -979,22 +979,22 @@
 {"input": "All microservices communicate over gRPC.", "output": "All microservices communicate over gRPC."}
 {"input": "The deployment pipeline runs in about fifteen minutes.", "output": "The deployment pipeline runs in about fifteen minutes."}
 {"input": "noted", "output": "Noted."}
-{"input": "so um basically the the voice box um desktop app and the the voice box CLI both use the the same config format", "output": "The Voice Box desktop app and the Voice Box CLI both use the same config format."}
+{"input": "so um basically the the echo flow um desktop app and the the echo flow CLI both use the the same config format", "output": "The EchoFlow desktop app and the EchoFlow CLI both use the same config format."}
 {"input": "uh like the the Elasticsearch um queries um are um returning um stale results because the the index isn't refreshing", "output": "The Elasticsearch queries are returning stale results because the index isn't refreshing."}
-{"input": "yeah so um we we need to to add add logging to the the voice box transcription pipeline and and monitor the the error rate", "output": "We need to add logging to the Voice Box transcription pipeline and monitor the error rate."}
+{"input": "yeah so um we we need to to add add logging to the the echo flow transcription pipeline and and monitor the the error rate", "output": "We need to add logging to the EchoFlow transcription pipeline and monitor the error rate."}
 {"input": "so like um could could you explain explain how the the event driven architecture and and the the message queue work work together", "output": "Could you explain how the event-driven architecture and the message queue work together?"}
 {"input": "um basically the the AWS Lambda um functions um are um cold starting and and it's it's adding latency to to the API", "output": "The AWS Lambda functions are cold starting, and it's adding latency to the API."}
 {"input": "uh yeah so like the the service mesh um is um routing um traffic to to the the wrong version and and we need to to fix the the routing rules", "output": "The service mesh is routing traffic to the wrong version, and we need to fix the routing rules."}
-{"input": "so um I was I was looking at the the voice box code and um the the refiner module needs needs better error handling for for edge cases", "output": "I was looking at the Voice Box code, and the refiner module needs better error handling for edge cases."}
+{"input": "so um I was I was looking at the the echo flow code and um the the refiner module needs needs better error handling for for edge cases", "output": "I was looking at the EchoFlow code, and the refiner module needs better error handling for edge cases."}
 {"input": "um like the the GitHub Actions um workflow um keeps keeps failing on on the the docker build step and uh we we should cache cache the layers", "output": "The GitHub Actions workflow keeps failing on the Docker build step, and we should cache the layers."}
 {"input": "yeah basically um the the monitoring shows um that the the database um connections keep keep spiking and um we we need to to implement connection pooling", "output": "The monitoring shows that the database connections keep spiking, and we need to implement connection pooling."}
 {"input": "so like um the the frontend um team um reported that that the the API um is um returning inconsistent inconsistent data between between requests", "output": "The frontend team reported that the API is returning inconsistent data between requests."}
 {"input": "uh um so basically the the Kubernetes um ingress controller uh is is misconfigured and and requests are are being being dropped during during rolling updates", "output": "The Kubernetes ingress controller is misconfigured, and requests are being dropped during rolling updates."}
-{"input": "um yeah so the the voice box um audio processing um pipeline has has a a buffer overflow when when processing processing long recordings", "output": "The Voice Box audio processing pipeline has a buffer overflow when processing long recordings."}
+{"input": "um yeah so the the echo flow um audio processing um pipeline has has a a buffer overflow when when processing processing long recordings", "output": "The EchoFlow audio processing pipeline has a buffer overflow when processing long recordings."}
 {"input": "so um we we're gonna need to to migrate the the database and and also update the the API and and the the frontend before before the release", "output": "We're going to need to migrate the database and also update the API and the frontend before the release."}
 {"input": "uh well I guess yeah basically so", "output": ""}
 {"input": "um so like right well yeah you know basically", "output": ""}
-{"input": "um how do I configure voice box to use a different audio backend", "output": "How do I configure Voice Box to use a different audio backend?"}
+{"input": "um how do I configure echo flow to use a different audio backend", "output": "How do I configure EchoFlow to use a different audio backend?"}
 {"input": "explain how the circuit breaker pattern prevents cascading failures", "output": "Explain how the circuit breaker pattern prevents cascading failures."}
 {"input": "uh the the deployment um script uh needs to to handle the the case where where the the service is is already running", "output": "The deployment script needs to handle the case where the service is already running."}
 {"input": "so basically um I was I was reviewing the the pull request and um the the tests are are passing but but the code needs needs refactoring", "output": "I was reviewing the pull request, and the tests are passing, but the code needs refactoring."}

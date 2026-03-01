@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "voicebox"
+name = "echoflow"
 version = "0.1.0"
 description = "Linux voice-to-text daemon — record, transcribe, refine, inject"
 license = "MIT"
@@ -27,9 +27,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/WaffleWaldo/Voice-Box"
-Repository = "https://github.com/WaffleWaldo/Voice-Box"
-Issues = "https://github.com/WaffleWaldo/Voice-Box/issues"
+Homepage = "https://github.com/WaffleWaldo/EchoFlow"
+Repository = "https://github.com/WaffleWaldo/EchoFlow"
+Issues = "https://github.com/WaffleWaldo/EchoFlow/issues"
 
 [project.scripts]
-voicebox = "voicebox.cli:main"
+echoflow = "echoflow.cli:main"

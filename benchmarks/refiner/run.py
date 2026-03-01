@@ -5,7 +5,7 @@ Loads test cases from cases.jsonl, runs each through Ollama using a named
 profile from profiles.toml, and reports accuracy and timing metrics.
 
 Usage:
-    # Run the default profile (voicebox-refiner)
+    # Run the default profile (echoflow-refiner)
     python benchmarks/refiner/run.py
 
     # Run the master branch profile
@@ -39,7 +39,7 @@ CASES_PATH = BENCH_DIR / "cases.jsonl"
 PROFILES_PATH = BENCH_DIR / "profiles.toml"
 BASELINES_DIR = BENCH_DIR / "baselines"
 
-DEFAULT_PROFILE = "voicebox-refiner"
+DEFAULT_PROFILE = "echoflow-refiner"
 DEFAULT_URL = "http://127.0.0.1:11434"
 
 
@@ -186,10 +186,10 @@ def print_results(results: list[dict], baseline: list[dict] | None = None) -> No
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Voicebox refiner benchmark")
+    parser = argparse.ArgumentParser(description="EchoFlow refiner benchmark")
     parser.add_argument(
         "--profile", default=DEFAULT_PROFILE,
-        help="Profile name from profiles.toml (default: voicebox-refiner)",
+        help="Profile name from profiles.toml (default: echoflow-refiner)",
     )
     parser.add_argument("--url", default=DEFAULT_URL, help="Ollama base URL")
     parser.add_argument("--cases", default=str(CASES_PATH), help="Path to cases.jsonl")

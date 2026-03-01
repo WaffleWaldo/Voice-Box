@@ -10,11 +10,11 @@ import threading
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from voicebox.config import Config
+    from echoflow.config import Config
 
 log = logging.getLogger(__name__)
 
-SOCKET_PATH = f"/run/user/{os.getuid()}/voicebox.sock"
+SOCKET_PATH = f"/run/user/{os.getuid()}/echoflow.sock"
 
 
 def _get_socket_path() -> str:
@@ -30,7 +30,7 @@ class Daemon:
     """GTK4 application daemon with GLib-integrated Unix socket."""
 
     def __init__(self, config: Config | None = None) -> None:
-        from voicebox.config import load_config
+        from echoflow.config import load_config
 
         self._config = config or load_config()
         self._pipeline = None
@@ -51,7 +51,7 @@ class Daemon:
         from gi.repository import Gtk, Gio
 
         app = Gtk.Application(
-            application_id="dev.voicebox.daemon",
+            application_id="dev.echoflow.daemon",
             flags=Gio.ApplicationFlags.NON_UNIQUE,
         )
         self._app = app
@@ -60,8 +60,8 @@ class Daemon:
 
     def _on_activate(self, app) -> None:
         """Called once on the main thread when GTK is ready."""
-        from voicebox.core.pipeline import Pipeline
-        from voicebox.services.overlay import Overlay
+        from echoflow.core.pipeline import Pipeline
+        from echoflow.services.overlay import Overlay
 
         GLib = _glib()
         sock_path = _get_socket_path()

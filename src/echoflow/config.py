@@ -6,7 +6,7 @@ import tomllib
 from dataclasses import dataclass, field, fields
 from pathlib import Path
 
-CONFIG_DIR = Path.home() / ".config" / "voicebox"
+CONFIG_DIR = Path.home() / ".config" / "echoflow"
 CONFIG_PATH = CONFIG_DIR / "config.toml"
 
 
@@ -29,7 +29,7 @@ class STTConfig:
 class RefinerConfig:
     enabled: bool = True
     ollama_url: str = "http://127.0.0.1:11434"
-    model: str = "voicebox-refiner"
+    model: str = "echoflow-refiner"
     temperature: float = 0.2
 
 
@@ -46,7 +46,7 @@ class OverlayConfig:
 
 @dataclass
 class DictionaryConfig:
-    path: str = "~/.config/voicebox/dictionary.txt"
+    path: str = "~/.config/echoflow/dictionary.txt"
 
 
 @dataclass

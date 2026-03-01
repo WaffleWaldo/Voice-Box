@@ -1,4 +1,4 @@
-"""CLI entry point for voicebox."""
+"""CLI entry point for echoflow."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ import sys
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        prog="voicebox",
+        prog="echoflow",
         description="Linux voice-to-text daemon",
     )
     parser.add_argument(
@@ -20,7 +20,7 @@ def main() -> None:
 
     sub = parser.add_subparsers(dest="command")
 
-    sub.add_parser("daemon", help="Start the voicebox daemon")
+    sub.add_parser("daemon", help="Start the echoflow daemon")
     sub.add_parser("toggle", help="Toggle recording on/off")
     sub.add_parser("status", help="Query daemon status")
     sub.add_parser("stop", help="Stop the daemon")
@@ -47,8 +47,8 @@ def main() -> None:
 
 
 def _run_daemon() -> None:
-    from voicebox.config import load_config
-    from voicebox.daemon import Daemon
+    from echoflow.config import load_config
+    from echoflow.daemon import Daemon
 
     config = load_config()
     daemon = Daemon(config)
@@ -56,7 +56,7 @@ def _run_daemon() -> None:
 
 
 def _send(command: str) -> None:
-    from voicebox.daemon import send_command
+    from echoflow.daemon import send_command
 
     if command == "stop":
         command = "quit"

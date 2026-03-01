@@ -11,16 +11,16 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 
-from voicebox.core.audio import AudioRecorder
-from voicebox.core.refiner import Refiner
-from voicebox.core.transcriber import Transcriber
-from voicebox.data.dictionary import Dictionary
-from voicebox.services.injector import Injector
-from voicebox.services.niri import get_focused_window
+from echoflow.core.audio import AudioRecorder
+from echoflow.core.refiner import Refiner
+from echoflow.core.transcriber import Transcriber
+from echoflow.data.dictionary import Dictionary
+from echoflow.services.injector import Injector
+from echoflow.services.niri import get_focused_window
 
 if TYPE_CHECKING:
-    from voicebox.config import Config
-    from voicebox.services.overlay import Overlay
+    from echoflow.config import Config
+    from echoflow.services.overlay import Overlay
 
 log = logging.getLogger(__name__)
 

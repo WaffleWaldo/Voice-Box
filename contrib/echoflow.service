@@ -1,11 +1,11 @@
 [Unit]
-Description=Voice Box — voice-to-text daemon
-Documentation=https://github.com/WaffleWaldo/Voice-Box
+Description=EchoFlow — voice-to-text daemon
+Documentation=https://github.com/WaffleWaldo/EchoFlow
 After=graphical-session.target pipewire.service
 
 [Service]
 Type=simple
-ExecStart=%h/.local/bin/voicebox daemon
+ExecStart=%h/.local/bin/echoflow daemon
 Restart=on-failure
 RestartSec=5
 
