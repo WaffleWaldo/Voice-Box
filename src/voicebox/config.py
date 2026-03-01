@@ -18,12 +18,6 @@ class AudioConfig:
 
 
 @dataclass
-class VADConfig:
-    silence_threshold_sec: float = 3.0
-    min_speech_sec: float = 0.3
-
-
-@dataclass
 class STTConfig:
     model: str = "large-v3-turbo"
     device: str = "cuda"
@@ -64,11 +58,6 @@ class OverlayConfig:
 
 
 @dataclass
-class NotificationsConfig:
-    enabled: bool = True
-
-
-@dataclass
 class DictionaryConfig:
     path: str = "~/.config/voicebox/dictionary.txt"
 
@@ -76,12 +65,10 @@ class DictionaryConfig:
 @dataclass
 class Config:
     audio: AudioConfig = field(default_factory=AudioConfig)
-    vad: VADConfig = field(default_factory=VADConfig)
     stt: STTConfig = field(default_factory=STTConfig)
     refiner: RefinerConfig = field(default_factory=RefinerConfig)
     injector: InjectorConfig = field(default_factory=InjectorConfig)
     overlay: OverlayConfig = field(default_factory=OverlayConfig)
-    notifications: NotificationsConfig = field(default_factory=NotificationsConfig)
     dictionary: DictionaryConfig = field(default_factory=DictionaryConfig)
 
 
@@ -104,12 +91,10 @@ def load_config(path: Path | None = None) -> Config:
 
         section_map = {
             "audio": cfg.audio,
-            "vad": cfg.vad,
             "stt": cfg.stt,
             "refiner": cfg.refiner,
             "injector": cfg.injector,
             "overlay": cfg.overlay,
-            "notifications": cfg.notifications,
             "dictionary": cfg.dictionary,
         }
         for section_name, dc_instance in section_map.items():

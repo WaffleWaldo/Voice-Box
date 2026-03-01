@@ -93,7 +93,7 @@ class AudioRecorder:
             return np.concatenate(self._chunks).flatten()
 
     def _audio_callback(self, indata: np.ndarray, _frames: int, _time_info: object, status: sd.CallbackFlags) -> None:
-        """Called from the sounddevice C thread — must be fast, no locks, no exceptions."""
+        """Called from the sounddevice C thread — must be fast and non-blocking."""
         if status:
             log.warning("Audio callback status: %s", status)
         chunk = indata[:, 0].copy()

@@ -7,10 +7,6 @@
 sample_rate = 16000
 # mode = "toggle"          # "toggle" or "push_to_talk"
 
-[vad]
-silence_threshold_sec = 3.0  # Seconds of silence before auto-stop
-min_speech_sec = 0.3         # Minimum speech duration to accept
-
 [stt]
 model = "large-v3-turbo"
 device = "cuda"
@@ -38,9 +34,6 @@ enabled = true                  # Set to false to disable the GTK4 overlay UI
 [injector]
 type_delay_ms = 0
 clipboard_threshold = 500   # Characters above which clipboard paste is used
-
-[notifications]
-enabled = true
 
 [dictionary]
 # path = "~/.config/voicebox/dictionary.txt"

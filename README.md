@@ -7,10 +7,9 @@ Linux voice-to-text daemon for Wayland — record, transcribe, refine, and injec
 Voice Box runs as a background daemon and follows a simple pipeline:
 
 1. **Record** — captures audio from your microphone via PipeWire/sounddevice
-2. **Detect speech** — Silero VAD detects when you start and stop talking
-3. **Transcribe** — faster-whisper (Whisper) converts speech to text on your GPU
-4. **Refine** (optional) — Ollama cleans up filler words, fixes punctuation and grammar
-5. **Inject** — pastes the result into your focused window via clipboard (`wl-copy`/`wl-paste`) or typing (`wtype`)
+2. **Transcribe** — faster-whisper (Whisper) converts speech to text on your GPU
+3. **Refine** (optional) — Ollama cleans up filler words, fixes punctuation and grammar
+4. **Inject** — pastes the result into your focused window via clipboard (`wl-copy`/`wl-paste`) or typing (`wtype`)
 
 A GTK4 overlay (via gtk4-layer-shell) shows a recording waveform, processing spinner, and done/error status.
 
@@ -113,12 +112,10 @@ The configuration file lives at `~/.config/voicebox/config.toml`. See `config.ex
 | Section | Key options |
 |---|---|
 | `[audio]` | `device`, `sample_rate`, `mode` (`"toggle"` or `"push_to_talk"`) |
-| `[vad]` | `silence_threshold_sec`, `min_speech_sec` |
 | `[stt]` | `model`, `device` (`"cuda"`), `compute_type`, `language` |
 | `[refiner]` | `enabled`, `ollama_url`, `model`, `temperature`, `system_prompt` |
 | `[injector]` | `type_delay_ms`, `clipboard_threshold` |
 | `[overlay]` | `enabled` — set to `false` to disable the GTK4 overlay UI |
-| `[notifications]` | `enabled` — desktop notifications |
 | `[dictionary]` | `path` — custom word list for domain-specific terms |
 
 ## License
