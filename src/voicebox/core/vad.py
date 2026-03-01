@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Callable
 
 import numpy as np
 import torch
-from silero_vad import load_silero_vad, get_speech_timestamps
+from silero_vad import load_silero_vad
 
 if TYPE_CHECKING:
     from voicebox.config import VADConfig
