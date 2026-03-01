@@ -1,0 +1,41 @@
+# Voicebox configuration
+# Copy to ~/.config/voicebox/config.toml and customize.
+# All values shown are defaults — omit any you don't need to change.
+
+[audio]
+# device = ""              # PipeWire device name (empty = system default)
+sample_rate = 16000
+# mode = "toggle"          # "toggle" or "push_to_talk"
+
+[vad]
+silence_threshold_sec = 1.5  # Seconds of silence before auto-stop
+min_speech_sec = 0.3         # Minimum speech duration to accept
+
+[stt]
+model = "large-v3-turbo"
+device = "cuda"
+compute_type = "float16"
+language = "en"
+
+[refiner]
+enabled = true
+ollama_url = "http://127.0.0.1:11434"
+model = "llama3.1:8b"
+temperature = 0.3
+system_prompt = """You clean up voice transcriptions. Rules:
+- Remove filler words (um, uh, like, you know, basically, so, well)
+- Add proper punctuation and capitalization
+- Fix obvious grammar errors
+- Preserve the original meaning exactly
+- Output ONLY the cleaned text, nothing else"""
+user_prompt = "App: {app_id} | Window: {window_title}\n\nTranscript:\n{transcript}"
+
+[injector]
+type_delay_ms = 0
+clipboard_threshold = 500   # Characters above which clipboard paste is used
+
+[notifications]
+enabled = true
+
+[dictionary]
+# path = "~/.config/voicebox/dictionary.txt"

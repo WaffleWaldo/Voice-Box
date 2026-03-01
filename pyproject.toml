@@ -1,0 +1,19 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "voicebox"
+version = "0.1.0"
+description = "Linux voice-to-text daemon — record, transcribe, refine, inject"
+requires-python = ">=3.12"
+dependencies = [
+    "faster-whisper>=1.2.0",
+    "sounddevice>=0.5.0",
+    "numpy>=2.0",
+    "httpx>=0.28.0",
+    "silero-vad>=6.0",
+]
+
+[project.scripts]
+voicebox = "voicebox.cli:main"

@@ -1,0 +1,11 @@
+# Personal dictionary for Voicebox
+# One word or phrase per line. Used to bias Whisper transcription
+# and inform the LLM refiner about domain-specific terms.
+#
+# Examples:
+# Kubernetes
+# kubectl
+# PostgreSQL
+# CachyOS
+# niri
+# PipeWire

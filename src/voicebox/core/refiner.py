@@ -1,0 +1,81 @@
+"""AI text refinement via Ollama HTTP API."""
+
+from __future__ import annotations
+
+import logging
+from typing import TYPE_CHECKING
+
+import httpx
+
+if TYPE_CHECKING:
+    from voicebox.config import RefinerConfig
+
+log = logging.getLogger(__name__)
+
+
+class Refiner:
+    """Refines raw transcripts using a local LLM via Ollama."""
+
+    def __init__(self, config: RefinerConfig) -> None:
+        self._enabled = config.enabled
+        self._url = config.ollama_url.rstrip("/")
+        self._model = config.model
+        self._temperature = config.temperature
+        self._system_prompt = config.system_prompt
+        self._user_prompt_template = config.user_prompt
+
+    def check_connection(self) -> bool:
+        """Check if Ollama is reachable. Logs a warning if not."""
+        if not self._enabled:
+            return True
+        try:
+            resp = httpx.get(f"{self._url}/api/tags", timeout=5)
+            resp.raise_for_status()
+            log.info("Ollama connected (%s)", self._url)
+            return True
+        except httpx.HTTPError as e:
+            log.warning("Ollama unreachable at %s: %s", self._url, e)
+            return False
+
+    def refine(
+        self,
+        transcript: str,
+        app_id: str = "",
+        window_title: str = "",
+        dictionary_context: str = "",
+    ) -> str:
+        """Refine a transcript. Returns raw transcript on failure."""
+        if not self._enabled or not transcript.strip():
+            return transcript
+
+        system = self._system_prompt
+        if dictionary_context:
+            system = f"{system}\n\n{dictionary_context}"
+
+        user_msg = self._user_prompt_template.format(
+            app_id=app_id or "unknown",
+            window_title=window_title or "unknown",
+            transcript=transcript,
+        )
+
+        try:
+            resp = httpx.post(
+                f"{self._url}/api/chat",
+                json={
+                    "model": self._model,
+                    "messages": [
+                        {"role": "system", "content": system},
+                        {"role": "user", "content": user_msg},
+                    ],
+                    "stream": False,
+                    "options": {"temperature": self._temperature},
+                },
+                timeout=30,
+            )
+            resp.raise_for_status()
+            refined = resp.json()["message"]["content"].strip()
+            log.info("Refined: %r → %r", transcript, refined)
+            return refined
+        except (httpx.HTTPError, KeyError) as e:
+            log.warning("Refinement failed, using raw transcript: %s", e)
+            return transcript
