@@ -39,7 +39,7 @@ class Transcriber:
             audio,
             language=self._language,
             initial_prompt=initial_prompt or None,
-            vad_filter=True,
+            vad_filter=False,
         )
         text = " ".join(seg.text.strip() for seg in segments)
         log.info("Transcribed (lang=%s, prob=%.2f): %s", info.language, info.language_probability, text)

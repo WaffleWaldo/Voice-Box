@@ -16,7 +16,8 @@ if TYPE_CHECKING:
 log = logging.getLogger(__name__)
 
 SAMPLE_RATE = 16000
-CHUNK_SAMPLES = 480  # 30ms at 16kHz
+# silero-vad v6 requires sr / num_samples <= 31.25, so minimum 512 samples at 16kHz
+MIN_CHUNK_SAMPLES = 512
 
 
 class VAD:
@@ -32,6 +33,7 @@ class VAD:
         self._speech_start: float | None = None
         self._last_speech_time: float = 0.0
         self._fired = False
+        self._buffer = np.array([], dtype=np.float32)
         log.info("VAD initialized (silence=%.1fs, min_speech=%.1fs)",
                  self._silence_threshold, self._min_speech)
 
@@ -42,18 +44,26 @@ class VAD:
         self._speech_start = None
         self._last_speech_time = 0.0
         self._fired = False
+        self._buffer = np.array([], dtype=np.float32)
 
     def process_chunk(self, chunk: np.ndarray) -> None:
-        """Process a 30ms audio chunk. Fires on_silence when appropriate."""
+        """Process an audio chunk. Buffers until >= 512 samples then runs VAD."""
         if self._fired:
             return
 
-        tensor = torch.from_numpy(chunk).float()
-        # silero-vad expects exactly 480 samples at 16kHz for 30ms
-        if tensor.shape[0] != CHUNK_SAMPLES:
-            return
+        self._buffer = np.concatenate([self._buffer, chunk])
 
-        confidence = self._model(tensor, SAMPLE_RATE).item()
+        # Process in 512-sample windows
+        while len(self._buffer) >= MIN_CHUNK_SAMPLES and not self._fired:
+            window = self._buffer[:MIN_CHUNK_SAMPLES]
+            self._buffer = self._buffer[MIN_CHUNK_SAMPLES:]
+            # silero-vad v6 expects shape (batch, samples)
+            tensor = torch.from_numpy(window).float().unsqueeze(0)
+            confidence = self._model(tensor, SAMPLE_RATE).item()
+            self._update_state(confidence)
+
+    def _update_state(self, confidence: float) -> None:
+        """Update speech/silence state from a VAD confidence score."""
         now = time.monotonic()
 
         if confidence > 0.5:

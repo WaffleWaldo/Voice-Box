@@ -86,14 +86,19 @@ class Pipeline:
         return "processing"
 
     def _on_silence(self) -> None:
-        """Called by VAD when silence is detected after speech."""
+        """Called by VAD when silence is detected (from the forwarder thread)."""
         log.info("VAD triggered stop")
+        # Must dispatch to a new thread because this runs inside the audio
+        # forwarder thread, and stop() needs to join that thread.
+        threading.Thread(target=self._vad_stop, daemon=True).start()
+
+    def _vad_stop(self) -> None:
+        """Handle VAD-triggered stop from a separate thread."""
         with self._lock:
             if self._state == State.RECORDING:
                 self._recorder.stop()
                 self._state = State.PROCESSING
-                thread = threading.Thread(target=self._process, daemon=True)
-                thread.start()
+                threading.Thread(target=self._process, daemon=True).start()
 
     def _process(self) -> None:
         """Run the transcribe → refine → inject pipeline."""
