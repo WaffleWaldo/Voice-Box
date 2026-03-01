@@ -2,7 +2,7 @@ PREFIX ?= $(HOME)/.local
 VENV := $(PREFIX)/share/voicebox/venv
 BIN := $(PREFIX)/bin/voicebox
 
-.PHONY: install uninstall
+.PHONY: install uninstall model train bench-baseline bench
 
 install:
 	@echo "Creating venv with system site-packages..."
@@ -22,6 +22,18 @@ install:
 	@echo "Installed! Next steps:"
 	@echo "  1. cp config.example.toml ~/.config/voicebox/config.toml"
 	@echo "  2. systemctl --user enable --now voicebox"
+
+model:
+	ollama create voicebox-refiner -f contrib/Modelfile
+
+train:
+	.venv/bin/python3 benchmarks/refiner/train.py
+
+bench-baseline:
+	.venv/bin/python3 benchmarks/refiner/run.py --profile master --save master
+
+bench:
+	.venv/bin/python3 benchmarks/refiner/run.py --compare master
 
 uninstall:
 	systemctl --user disable --now voicebox 2>/dev/null || true
