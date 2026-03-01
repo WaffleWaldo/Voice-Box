@@ -6,6 +6,7 @@ import enum
 import logging
 import math
 import threading
+import time
 from typing import TYPE_CHECKING
 
 import numpy as np
@@ -103,6 +104,7 @@ class Pipeline:
 
     def _process(self) -> None:
         """Run the transcribe → refine → inject pipeline."""
+        t_start = time.perf_counter()
         try:
             audio = self._recorder.get_audio()
             if audio.size == 0:
@@ -111,12 +113,14 @@ class Pipeline:
                     self._overlay.show_error()
                 return
 
-            duration = audio.size / self._recorder.sample_rate
-            log.info("Processing %.1fs of audio", duration)
+            audio_duration = audio.size / self._recorder.sample_rate
+            log.info("Processing %.1fs of audio", audio_duration)
 
             # Transcribe
             whisper_prompt = self._dictionary.as_whisper_prompt()
+            t0 = time.perf_counter()
             transcript = self._transcriber.transcribe(audio, initial_prompt=whisper_prompt)
+            transcribe_ms = (time.perf_counter() - t0) * 1000
 
             if not transcript.strip():
                 log.warning("Empty transcription")
@@ -129,15 +133,26 @@ class Pipeline:
 
             # Refine
             dict_context = self._dictionary.as_llm_context()
+            t0 = time.perf_counter()
             text = self._refiner.refine(
                 transcript,
                 app_id=window["app_id"],
                 window_title=window["title"],
                 dictionary_context=dict_context,
             )
+            refine_ms = (time.perf_counter() - t0) * 1000
 
             # Inject
+            t0 = time.perf_counter()
             success = self._injector.inject(text, app_id=window["app_id"])
+            inject_ms = (time.perf_counter() - t0) * 1000
+
+            total_ms = (time.perf_counter() - t_start) * 1000
+            log.info(
+                "Pipeline complete: audio=%.1fs, transcribe=%dms, refine=%dms, inject=%dms, total=%dms",
+                audio_duration, transcribe_ms, refine_ms, inject_ms, total_ms,
+            )
+
             if self._overlay:
                 if success:
                     self._overlay.show_done()

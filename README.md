@@ -50,7 +50,16 @@ This creates a venv with `--system-site-packages` (needed for PyGObject/GTK4 bin
 installs pip-only dependencies (`sounddevice`), and symlinks the `voicebox`
 binary into `~/.local/bin/`.
 
-### 3. Configure
+### 3. Build the refiner model
+
+```sh
+make model
+```
+
+This creates a custom Ollama model (`voicebox-refiner`) with baked-in system prompt
+and few-shot examples for reliable transcript cleaning.
+
+### 4. Configure
 
 ```sh
 mkdir -p ~/.config/voicebox
@@ -58,7 +67,7 @@ cp config.example.toml ~/.config/voicebox/config.toml
 # Edit config.toml — set audio device, STT model, Ollama URL, etc.
 ```
 
-### 4. Start
+### 5. Start
 
 ```sh
 # One-time manual start:
@@ -115,7 +124,7 @@ The configuration file lives at `~/.config/voicebox/config.toml`. See `config.ex
 |---|---|
 | `[audio]` | `device`, `sample_rate`, `mode` (`"toggle"` or `"push_to_talk"`) |
 | `[stt]` | `model`, `device` (`"cuda"`), `compute_type`, `language` |
-| `[refiner]` | `enabled`, `ollama_url`, `model`, `temperature`, `system_prompt` |
+| `[refiner]` | `enabled`, `ollama_url`, `model`, `temperature` |
 | `[injector]` | `type_delay_ms`, `clipboard_threshold` |
 | `[overlay]` | `enabled` — set to `false` to disable the GTK4 overlay UI |
 | `[dictionary]` | `path` — custom word list for domain-specific terms |

@@ -29,21 +29,8 @@ class STTConfig:
 class RefinerConfig:
     enabled: bool = True
     ollama_url: str = "http://127.0.0.1:11434"
-    model: str = "llama3.1:8b"
-    temperature: float = 0.3
-    system_prompt: str = (
-        "You clean up voice transcriptions. Rules:\n"
-        "- Remove filler words (um, uh, like, you know, basically, so, well)\n"
-        "- Add proper punctuation and capitalization\n"
-        "- Fix obvious grammar errors\n"
-        "- Preserve the original meaning exactly\n"
-        "- Use paragraph breaks for distinct thoughts or topic changes\n"
-        "- Format as bullet points when the speaker is listing items or steps\n"
-        "- Output ONLY the cleaned text, nothing else"
-    )
-    user_prompt: str = (
-        "App: {app_id} | Window: {window_title}\n\nTranscript:\n{transcript}"
-    )
+    model: str = "voicebox-refiner"
+    temperature: float = 0.2
 
 
 @dataclass

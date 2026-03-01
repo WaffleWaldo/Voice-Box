@@ -1,0 +1,23 @@
+# Refiner benchmark profiles.
+# Each section defines a complete refiner configuration for benchmarking.
+# Fields: model, temperature, system_prompt (optional), user_template (optional).
+# user_template uses {transcript} as a placeholder for the input text.
+
+[master]
+description = "Master branch: llama3.1:8b with per-request system prompt"
+model = "llama3.1:8b"
+temperature = 0.3
+system_prompt = """You clean up voice transcriptions. Rules:
+- Remove filler words (um, uh, like, you know, basically, so, well)
+- Add proper punctuation and capitalization
+- Fix obvious grammar errors
+- Preserve the original meaning exactly
+- Use paragraph breaks for distinct thoughts or topic changes
+- Format as bullet points when the speaker is listing items or steps
+- Output ONLY the cleaned text, nothing else"""
+user_template = "App: unknown | Window: unknown\n\nTranscript:\n{transcript}"
+
+[voicebox-refiner]
+description = "Custom Modelfile: system prompt + few-shot baked in"
+model = "voicebox-refiner"
+temperature = 0.2

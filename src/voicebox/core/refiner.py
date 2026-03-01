@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import secrets
 from typing import TYPE_CHECKING
 
 import httpx
@@ -21,8 +22,6 @@ class Refiner:
         self._url = config.ollama_url.rstrip("/")
         self._model = config.model
         self._temperature = config.temperature
-        self._system_prompt = config.system_prompt
-        self._user_prompt_template = config.user_prompt
 
     def check_connection(self) -> bool:
         """Check if Ollama is reachable. Logs a warning if not."""
@@ -48,25 +47,24 @@ class Refiner:
         if not self._enabled or not transcript.strip():
             return transcript
 
-        system = self._system_prompt
-        if dictionary_context:
-            system = f"{system}\n\n{dictionary_context}"
-
-        user_msg = self._user_prompt_template.format(
-            app_id=app_id or "unknown",
-            window_title=window_title or "unknown",
-            transcript=transcript,
+        nonce = secrets.token_hex(4)
+        user_msg = (
+            f"App: {app_id or 'unknown'} | Window: {window_title or 'unknown'}\n\n"
+            f"---TRANSCRIPT-{nonce}---\n"
+            f"{transcript}\n"
+            f"---END-{nonce}---"
         )
+
+        messages: list[dict[str, str]] = [{"role": "user", "content": user_msg}]
+        if dictionary_context:
+            messages.insert(0, {"role": "system", "content": dictionary_context})
 
         try:
             resp = httpx.post(
                 f"{self._url}/api/chat",
                 json={
                     "model": self._model,
-                    "messages": [
-                        {"role": "system", "content": system},
-                        {"role": "user", "content": user_msg},
-                    ],
+                    "messages": messages,
                     "stream": False,
                     "options": {"temperature": self._temperature},
                 },
@@ -74,8 +72,19 @@ class Refiner:
             )
             resp.raise_for_status()
             refined = resp.json()["message"]["content"].strip()
+            refined = self._validate_output(refined, transcript)
             log.info("Refined: %r → %r", transcript, refined)
             return refined
         except (httpx.HTTPError, KeyError) as e:
             log.warning("Refinement failed, using raw transcript: %s", e)
             return transcript
+
+    def _validate_output(self, output: str, original: str) -> str:
+        """Validate refiner output. Falls back to original on failure."""
+        if len(original) > 0 and len(output) > 2 * len(original):
+            log.warning(
+                "Refiner output too long (%d chars vs %d input), using raw transcript",
+                len(output), len(original),
+            )
+            return original
+        return output

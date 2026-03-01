@@ -10,3 +10,4 @@ build/
 *.egg
 .mypy_cache/
 .ruff_cache/
+benchmarks/refiner/baselines/*.json
