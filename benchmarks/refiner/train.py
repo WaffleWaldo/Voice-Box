@@ -162,7 +162,7 @@ def main():
             optim="adamw_8bit",
             weight_decay=0.01,
             lr_scheduler_type="linear",
-            warmup_steps=10,
+            warmup_steps=20,
             seed=42,
             output_dir=str(OUTPUT_DIR),
         ),
