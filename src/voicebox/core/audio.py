@@ -71,6 +71,12 @@ class AudioRecorder:
             self._stream.close()
             self._stream = None
 
+        # Drain queued chunks (VAD doesn't need them — audio is already in self._chunks)
+        while not self._queue.empty():
+            try:
+                self._queue.get_nowait()
+            except queue.Empty:
+                break
         # Signal forwarder to stop
         self._queue.put(None)
         if self._forwarder is not None:

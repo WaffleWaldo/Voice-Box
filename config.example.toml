@@ -8,7 +8,7 @@ sample_rate = 16000
 # mode = "toggle"          # "toggle" or "push_to_talk"
 
 [vad]
-silence_threshold_sec = 1.5  # Seconds of silence before auto-stop
+silence_threshold_sec = 3.0  # Seconds of silence before auto-stop
 min_speech_sec = 0.3         # Minimum speech duration to accept
 
 [stt]
@@ -27,6 +27,8 @@ system_prompt = """You clean up voice transcriptions. Rules:
 - Add proper punctuation and capitalization
 - Fix obvious grammar errors
 - Preserve the original meaning exactly
+- Use paragraph breaks for distinct thoughts or topic changes
+- Format as bullet points when the speaker is listing items or steps
 - Output ONLY the cleaned text, nothing else"""
 user_prompt = "App: {app_id} | Window: {window_title}\n\nTranscript:\n{transcript}"
 

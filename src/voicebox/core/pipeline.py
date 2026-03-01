@@ -10,7 +10,6 @@ from typing import TYPE_CHECKING
 from voicebox.core.audio import AudioRecorder
 from voicebox.core.refiner import Refiner
 from voicebox.core.transcriber import Transcriber
-from voicebox.core.vad import VAD
 from voicebox.data.dictionary import Dictionary
 from voicebox.services.injector import Injector
 from voicebox.services.niri import get_focused_window
@@ -45,11 +44,8 @@ class Pipeline:
         self._dictionary = Dictionary(config.dictionary.path)
 
         # Services
-        self._injector = Injector(config.injector)
+        self._injector = Injector()
         self._notify = config.notifications.enabled
-
-        # VAD — created per-recording session
-        self._vad: VAD | None = None
 
         # Check Ollama connectivity at startup
         self._refiner.check_connection()
@@ -70,9 +66,7 @@ class Pipeline:
 
     def _start_recording(self) -> str:
         self._state = State.RECORDING
-        self._vad = VAD(self._config.vad, on_silence=self._on_silence)
-        self._vad.reset()
-        self._recorder.start(on_chunk=self._vad.process_chunk)
+        self._recorder.start()
         if self._notify:
             notify("Recording...", "Speak now")
         return "recording"
@@ -84,21 +78,6 @@ class Pipeline:
         thread = threading.Thread(target=self._process, daemon=True)
         thread.start()
         return "processing"
-
-    def _on_silence(self) -> None:
-        """Called by VAD when silence is detected (from the forwarder thread)."""
-        log.info("VAD triggered stop")
-        # Must dispatch to a new thread because this runs inside the audio
-        # forwarder thread, and stop() needs to join that thread.
-        threading.Thread(target=self._vad_stop, daemon=True).start()
-
-    def _vad_stop(self) -> None:
-        """Handle VAD-triggered stop from a separate thread."""
-        with self._lock:
-            if self._state == State.RECORDING:
-                self._recorder.stop()
-                self._state = State.PROCESSING
-                threading.Thread(target=self._process, daemon=True).start()
 
     def _process(self) -> None:
         """Run the transcribe → refine → inject pipeline."""
@@ -139,7 +118,7 @@ class Pipeline:
             )
 
             # Inject
-            success = self._injector.inject(text)
+            success = self._injector.inject(text, app_id=window["app_id"])
             if self._notify:
                 if success:
                     notify("Done", text[:100])

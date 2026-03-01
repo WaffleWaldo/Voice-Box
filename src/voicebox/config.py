@@ -19,7 +19,7 @@ class AudioConfig:
 
 @dataclass
 class VADConfig:
-    silence_threshold_sec: float = 1.5
+    silence_threshold_sec: float = 3.0
     min_speech_sec: float = 0.3
 
 
@@ -43,6 +43,8 @@ class RefinerConfig:
         "- Add proper punctuation and capitalization\n"
         "- Fix obvious grammar errors\n"
         "- Preserve the original meaning exactly\n"
+        "- Use paragraph breaks for distinct thoughts or topic changes\n"
+        "- Format as bullet points when the speaker is listing items or steps\n"
         "- Output ONLY the cleaned text, nothing else"
     )
     user_prompt: str = (
