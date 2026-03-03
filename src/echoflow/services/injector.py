@@ -38,11 +38,11 @@ class Injector:
             try:
                 result = subprocess.run(
                     ["wl-paste", "--no-newline"],
-                    capture_output=True, text=True, timeout=2,
+                    capture_output=True, timeout=2,
                 )
                 if result.returncode == 0:
-                    old_clip = result.stdout
-            except subprocess.SubprocessError:
+                    old_clip = result.stdout.decode("utf-8")
+            except (subprocess.SubprocessError, UnicodeDecodeError):
                 pass
 
             # Copy text to clipboard
