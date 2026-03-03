@@ -1,9 +1,10 @@
-"""Text injection via clipboard paste (wl-copy + wtype Ctrl+V)."""
+"""Text injection via clipboard paste (wl-copy + ydotool/wtype Ctrl+V)."""
 
 from __future__ import annotations
 
 import logging
 import subprocess
+import time
 
 log = logging.getLogger(__name__)
 
@@ -50,19 +51,26 @@ class Injector:
                 input=text, text=True, check=True, timeout=5,
             )
 
-            # Paste — terminals use Ctrl+Shift+V, everything else Ctrl+V
+            # Paste — terminals use wtype Ctrl+Shift+V, everything else
+            # uses ydotool Ctrl+V (wtype's virtual-keyboard protocol
+            # doesn't work with Chrome/Electron apps).
             if app_id in TERMINAL_APP_IDS:
                 subprocess.run(
                     ["wtype", "-M", "ctrl", "-M", "shift", "v", "-m", "shift", "-m", "ctrl"],
                     check=True, timeout=10,
                 )
-                log.info("Injected %d chars via Ctrl+Shift+V (terminal: %s)", len(text), app_id)
+                log.info("Injected %d chars via wtype Ctrl+Shift+V (terminal: %s)", len(text), app_id)
             else:
+                # ydotool key codes: 29=Left Ctrl, 47=V
                 subprocess.run(
-                    ["wtype", "-M", "ctrl", "v", "-m", "ctrl"],
+                    ["ydotool", "key", "29:1", "47:1", "47:0", "29:0"],
                     check=True, timeout=10,
                 )
-                log.info("Injected %d chars via Ctrl+V (app: %s)", len(text), app_id)
+                log.info("Injected %d chars via ydotool Ctrl+V (app: %s)", len(text), app_id)
+
+            # Delay before restoring clipboard — apps read it
+            # asynchronously after the Ctrl+V keystroke lands.
+            time.sleep(0.1)
 
             # Restore previous clipboard
             if old_clip is not None:

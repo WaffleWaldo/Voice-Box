@@ -74,6 +74,7 @@ class Pipeline:
 
     def _start_recording(self) -> str:
         self._state = State.RECORDING
+        self._target_window = get_focused_window()
         if self._overlay:
             self._overlay.show_recording()
         self._recorder.start(on_chunk=self._on_audio_chunk)
@@ -128,8 +129,8 @@ class Pipeline:
                     self._overlay.show_error()
                 return
 
-            # Get window context for refinement
-            window = get_focused_window()
+            # Use the window that was focused when recording started
+            window = self._target_window
 
             # Refine
             dict_context = self._dictionary.as_llm_context()
