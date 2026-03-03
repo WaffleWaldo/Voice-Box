@@ -87,4 +87,7 @@ class Refiner:
                 len(output), len(original),
             )
             return original
+        if output.startswith("App:") or output.startswith("---TRANSCRIPT"):
+            log.warning("Refiner echoed context metadata, using raw transcript")
+            return original
         return output
